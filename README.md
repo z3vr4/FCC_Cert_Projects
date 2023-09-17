@@ -8,3 +8,6 @@ I intend to fully develop this concept into an API based data analysis tool capa
 ## Projectile Trajectory
 Originally coded in Google Colab. This code graphs a quadratic equation simulating a (simplified) projectile trajectory in the shape of a parabola and lets the user adjust the variables in real time.
 Mre of a code practice exercise to work with interactive graphs than an useful program.
+
+## Old_Budget_App
+A project required for the Scientific Computing with Python dev certification. I coded this one long ago, early into my learning journey, so the code might not be as optimized or readable as other examples, but it serves to demonstrate some OOP.
