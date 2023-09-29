@@ -18,7 +18,6 @@
   # Note 2: for graph interpretation, I'll take the Simple Moving Average of the last third of values and compare it to
   # the mean of the entire column. That should be a somewhat decent interpretation without getting too complex.
 
-
 # CSV URL for testing
 # https://people.sc.fsu.edu/~jburkardt/data/csv/faithful.csv
 
@@ -48,6 +47,7 @@ def DataGraphExplorer():
         FileURL = input("Please enter your file's URL:\n")
         FileURL = FileURL.replace(" ","")
         table = pd.read_csv(FileURL)
+
       case "3":
         # manually insert URL into code
         FileURL = " This is where your file's URL should be "
@@ -95,8 +95,8 @@ def DataGraphExplorer():
         print_column_yn = input("Print the column values sorted and unsorted? (Might take some space)\nEnter y / n\n")
         match print_column_yn:
           case "y":
-            ColMedian = ColNumpy
-            np.sort(ColMedian)
+            ColMedian = np.copy(ColNumpy)
+            ColMedian.sort()
             print("The chosen column has the following values:\n",ColNumpy,"\nSorted, these values are:\n",ColMedian)
           case _:
             pass
@@ -142,11 +142,12 @@ def DataGraphExplorer():
         print("For a more in-depth analysis of a column, please select the 'Select a single column to analyze and graph' option of the menu")
         return display_options()
       case "0":
-        sys.exit()
+        exit()
         pass # in case the sys.exit() messes up.
       case _:
         print("It seems you have entered a wrong option. Please input either '1', '2' or '3' without quotes.")
         return display_options()
+
   input_ask()
   show_table_indexes()
   display_options()
