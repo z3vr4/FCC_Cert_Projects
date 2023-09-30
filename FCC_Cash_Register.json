@@ -1,0 +1,95 @@
+function checkCashRegister(price, cash, cid) {
+    // main variables block
+    let change = [];
+    let xchange = cash - price;
+    let biggest_unit = 0;
+    let biggest_unit_index = 0;
+    let req_bills = 0
+    let changeobj = {
+    status: "",
+    change: cid,
+    };
+    // arr below has    curr.unit price - amount    (gets updated values of amount of that currency below)
+    let unit_amnt_arr = [[0.01,0],[0.05,0],[0.1,0],[0.25,0],[1,0],[5,0,],[10,0],[20,0],[100,0]]
+
+    // find biggest currency unit you could pay with
+    // loop through currency unit values, compare xchange to it
+    // also update "unit_amnt_arr", we do it inside this loop to avoid more loops
+    for(let i = 0; i < unit_amnt_arr.length; i++){
+        if(unit_amnt_arr[i][0] <= xchange){ biggest_unit = unit_amnt_arr[i][0]; biggest_unit_index = i;}
+        unit_amnt_arr[i][1] = cid[i][1]/unit_amnt_arr[i][0]
+/*LOGGING*/ //console.log("For value",unit_amnt_arr[i][0],"we have",unit_amnt_arr[i][1])
+    }
+
+    // DETERMINE CHANGE LOOP ( the meat and potatoes of this code):
+    while (xchange > 0){
+if(biggest_unit <= xchange){    
+    req_bills = Math.floor(xchange/biggest_unit)
+/*LOGGING*/ //console.log("Xchange =",xchange)
+
+// IF WE HAVE 0 OF BIGGEST UNIT (NO MONEY)
+if(unit_amnt_arr[biggest_unit_index][1] == 0){
+/*LOGGING*/ //console.log("WE HAVE NO MONEY FOR",biggest_unit,)
+    biggest_unit_index--
+    biggest_unit = unit_amnt_arr[biggest_unit_index][0]
+/*LOGGING*/ //console.log("NEXT BIGGEST UNIT IS",biggest_unit,)
+    continue
+}
+
+    // Loop finisher: we can pay exactly. Probably bugged
+    if(xchange%biggest_unit == 0 && req_bills <= unit_amnt_arr[biggest_unit_index][1]){
+// gotta add the amount used here
+        change.push([cid[biggest_unit_index][0],biggest_unit*req_bills])
+/*LOGGING*/ //console.log("Change: ",change)
+        changeobj.change = change
+        changeobj.status = "OPEN"
+/*LOGGING*/ // console.log("Loop end!")
+        return changeobj
+    }
+
+    // Loop goes to next iteration, modifies data
+    else if (xchange%biggest_unit != 0) {
+/*LOGGING*/ //console.log("required bills: ",req_bills)
+/*LOGGING*/ //console.log("we have: ",unit_amnt_arr[biggest_unit_index][1])
+    let used_amnt = 0
+    // IN CASE WE HAVE ENOUGH BILLS:
+    if (req_bills <= unit_amnt_arr[biggest_unit_index][1]){
+/*LOGGING*/ //console.log("WE GOT ENOUGH BILLS")
+        xchange = (xchange - biggest_unit * req_bills).toFixed(2); // Had to do this due to Javascript limitations with floating points.
+        used_amnt = req_bills
+        // LOOP FINISHER IF THAT'S ALL THE MONEY WE HAD
+        if(biggest_unit_index == 0){
+        changeobj.change = cid
+        changeobj.status = "CLOSED"
+/*LOGGING*/ // console.log("Loop end!")
+        return changeobj
+        }
+    }
+    // IN CASE WE DONT HAVE ENOUGH BILLS :
+    else if (!(req_bills <= unit_amnt_arr[biggest_unit_index][1]) && biggest_unit_index > 0) {
+/*LOGGING*/ //console.log("WE DONT HAVE ENOUGH BILLS")
+        xchange = (xchange - biggest_unit * unit_amnt_arr[biggest_unit_index][1]).toFixed(2); // Fixes JScript weird floating point stuff
+        used_amnt = unit_amnt_arr[biggest_unit_index][1]
+    }
+    // IN CASE WE DONT HAVE ENOUGH BILLS, AND THERE'S NO SMALLER CURRENCY ( LOOP END )
+    else {
+        changeobj.change = []
+        changeobj.status = "INSUFFICIENT_FUNDS"
+/*LOGGING*/ // console.log("Loop end!")
+        return changeobj
+    }
+    /* add amount used to the changeobj array */    change.push([cid[biggest_unit_index][0],biggest_unit*used_amnt])
+    /* make biggest unit index lower */    biggest_unit_index--
+    /* determine new biggest unit */   biggest_unit = unit_amnt_arr[biggest_unit_index][0]
+/*LOGGING*/ // console.log("Change: ",change)
+    }
+// END OF THE XCHANGE >= BIGGEST BILL - IF STATEMENT BELOW
+} else {
+    biggest_unit_index--
+    biggest_unit = unit_amnt_arr[biggest_unit_index][0]
+}
+// END OF THE DETERMINE-CHANGE LOOP IS THE BRACKET BELOW
+}
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
