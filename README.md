@@ -11,3 +11,6 @@ Mre of a code practice exercise to work with interactive graphs than an useful p
 
 ## Old_Budget_App
 A project required for the Scientific Computing with Python dev certification. I coded this one long ago, early into my learning journey, so the code might not be as optimized or readable as other examples, but it serves to demonstrate some OOP.
+
+## "Cash Register"
+The 5th required certification project on the "JavaScript Algorithms and Data Structures" course on FreeCodeCamp. Submitted as an example of my coding, although its from back when I was still somewhat new to Javascript.
