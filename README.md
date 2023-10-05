@@ -14,3 +14,6 @@ A project required for the Scientific Computing with Python dev certification. I
 
 ## "Cash Register"
 The 5th required certification project on the "JavaScript Algorithms and Data Structures" course on FreeCodeCamp. Submitted as an example of my coding, although its from back when I was still somewhat new to Javascript.
+
+## Mean-Variance-Standard Deviation Calculator
+First of the certification requirements for the "Data Analysis with Python" certification course on FreeCodeCamp. Examples of working with multi dimensional lists, working with loops and trying to be somewhat efficient code wise.
