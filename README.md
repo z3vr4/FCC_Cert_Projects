@@ -19,4 +19,4 @@ The 5th required certification project on the "JavaScript Algorithms and Data St
 First of the certification requirements for the "Data Analysis with Python" certification course on FreeCodeCamp. Examples of working with multi dimensional lists, working with loops and trying to be somewhat efficient code wise.
 
 ## Sea Level Analysis
-The fifth certification project of the Data Analysis with Python course on freeCodeCamp. Showcases use of the pandas library, code efficiency and basic matplotlib usage.
+The fifth certification project of the Data Analysis with Python course on freeCodeCamp. Showcases use of the pandas library, code efficiency and basic matplotlib usage. The code was taken directly from its environment, therefore it is missing the .csv file it is supposed to work off of. Will update it some time in the future.
